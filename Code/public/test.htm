@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Climb Homepage</title>
+  <link rel="stylesheet" type="text/css" href="./theme.css" />
+</head>
+
+<body>
+  <h3>Users</h3>
+  <form action="http://localhost:8081/userListAll" method="GET">
+    List All Users
+    <input type="submit" />
+  </form>
+  <br />
+  <form action="http://localhost:8081/userDeleteAll" method="POST">
+    Delete All Users
+    <input type="submit" />
+  </form>
+  <br />
+  <form action="http://localhost:8081/userLogIn" method="POST">
+    Log In
+    <input type="email" name="email" placeholder="email" />
+    <input type="password" name="password" placeholder="password" />
+    <input type="submit" />
+  </form>
+  <br />
+  <form action="http://localhost:8081/userSignUp" method="POST">
+    Sign Up
+    <input type="email" name="email" placeholder="email" />
+    <input type="text" name="username" placeholder="username" />
+    <input type="password" name="password" placeholder="password" />
+    <input type="submit" />
+  </form>
+  <h3>Leagues</h3>
+  <form action="http://localhost:8081/leagueListAll" method="GET">
+    List All Leagues
+    <input type="submit" />
+  </form>
+  <br />
+  <form action="http://localhost:8081/leagueCreate" method="POST">
+    Create League
+    <input type="text" name="name" placeholder="name" />
+    <input type="text" name="description" placeholder="description" />
+    <input type="email" name="adminEmail" placeholder="admin email" />
+    <input type="submit" />
+  </form>
+  <h3>Games</h3>
+  <form action="http://localhost:8081/gameListAll" method="GET">
+    List All Games
+    <input type="submit" />
+  </form>
+  <br />
+  <form action="http://localhost:8081/gameCreate" method="POST">
+    Create Game
+    <input type="text" name="name" placeholder="name" />
+    <input type="text" name="type" placeholder="type" />
+    <input type="submit" />
+  </form>
+</body>
+
+</html>
