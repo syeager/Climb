@@ -3,12 +3,24 @@
 
 <head>
   <title>Climb Homepage</title>
-  <link rel="stylesheet" type="text/css" href="./theme.css" />
+  <link rel="stylesheet" type="text/css" href="/styles/theme.css" />
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#driver").click(function(event) {
+    logIn();
+  });
+});
+</script>
 </head>
 
 <body>
+  <input type="button" onclick="test()" value="TEST"/>
+
+
+  <input type = "button" id = "driver" value = "Loadata" />
   <h3>Users</h3>
-  <form action="http://localhost:8081/userListAll" method="GET">
+  <form action="http://localhost:8081/user/listAll" method="GET">
     List All Users
     <input type="submit" />
   </form>
@@ -57,6 +69,32 @@
     <input type="text" name="type" placeholder="type" />
     <input type="submit" />
   </form>
+  <h3>Matches</h3>
+  <form action="http://localhost:8081/matchListAll" method="POST">
+    List All Matches
+    <input type="text" name="league" placeholder="league" />
+    <input type="text" name="game" placeholder="game" />
+    <input type="submit" />
+  </form>
+  <br />
+  <form action="http://localhost:8081/matchCreate" method="POST">
+    Create Match
+    <input type="text" name="league" placeholder="league" />
+    <input type="text" name="game" placeholder="game" />
+    <input type="text" name="player1" placeholder="Player 1 Username" />
+    <input type="number" name="player1Score" placeholder="Player 2 Score" />
+    <input type="text" name="player2" placeholder="Player 2 Username" />
+    <input type="number" name="player2Score" placeholder="Player 2 Score" />
+    <input type="submit" />
+  </form>
+
+<p id="username"></p>
+
+<p id="demo">A Paragraph</p>
+
+<button type="button" onclick="myFunction()">Try it</button>
+<script src="/scripts/ClientTest.js"></script>
+
 </body>
 
 </html>
