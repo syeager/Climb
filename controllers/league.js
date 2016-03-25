@@ -58,9 +58,27 @@ router.get("/listAll", function(req, res) {
   LeagueModel.find({}, function(err, leagues) {
     if (err) return console.error(err);
 
-    console.log("League Count: %s", leagues.length);
-    console.log(leagues);
+    // console.log("League Count: %s", leagues.length);
+    // console.log(leagues);
     res.send(JSON.stringify(leagues));
+  });
+});
+
+router.get("/listMemberOf", urlencodedParser, function(req, res) {
+  var email = req.query.email;
+  console.log("Looking for email: " + email);
+
+  UserModel.findOne({email: email}, function(error, user) {
+    if (error) return console.error(error);
+    console.log(user);
+
+    var userID = user._id;
+    LeagueModel.find({members: userID}, function(error, leagues) {
+      if (error) return console.error(error);
+
+      console.log(leagues);
+      res.send(leagues);
+    });
   });
 });
 
