@@ -10,21 +10,30 @@
 </head>
 
 <body>
-  User
-  <div id='username' hidden=true>
-    USERNAME
-  </div>
-  <div id="login-form">
-    <form id="user-login" action="http://localhost:8081/user/logIn" method="POST">
-      <input type="email" id="email" name="email" placeholder="email" />
-      <input type="password" id="password" name="password" placeholder="password" />
-      <input type="submit" value="Log In" />
-    </form>
-  </div>
-  <div id='signout' hidden=true>
-    <input type="button" onclick="signOut()" value="Sign Out"/>
+  <div class="username">
+    User
+    <div id='username' hidden=true>
+      USERNAME
+    </div>
+    <div id="login-form">
+      <form id="user-login" action="http://localhost:8081/user/logIn" method="POST">
+        <input type="email" id="email" name="email" placeholder="email" />
+        <input type="password" id="password" name="password" placeholder="password" />
+        <input type="submit" value="Log In" />
+      </form>
+    </div>
+    <div id='signout' hidden=true>
+      <input type="button" onclick="signOut()" value="Sign Out" />
+    </div>
   </div>
   <hr>
+
+  <ul>
+    <li><a href="">Home</a></li>
+    <li><a href="league">Leagues</a></li>
+    <li><a href="season">Seasons</a></li>
+  </ul>
+
 </body>
 
 </html>

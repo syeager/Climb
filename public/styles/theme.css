@@ -1,6 +1,8 @@
-h3 {
-    color: orangered;
+body {
+  margin: 0;
+  padding: 0;
 }
-table, th, td {
-   border: 1px solid black;
+.username {
+  float: right;
+  width: 100%;
 }

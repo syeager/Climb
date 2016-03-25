@@ -4,12 +4,14 @@
 //  wrong email, right password
 //  wrong email, wrong password
 
-describe("Log In", function () {
-  it("Logs in.", function () {
-    var email = "yeagz7@gmail.com";
-    var password = "knight42";
-    logIn(email, password, function (username) {
-      expect(username).toEqual("boyBlue_");
+describe("User Log In", function () {
+  describe("Right Email Right Password", function () {
+    it("Logs in.", function () {
+      var email = "yeagz7@gmail.com";
+      var password = "knight42";
+      logIn(email, password, function (username) {
+        expect(username).toEqual("boyBlue_");
+      });
     });
   });
 });
