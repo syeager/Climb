@@ -5,7 +5,7 @@ var leagueSchema = mongoose.Schema({
   description: String,
   admin: String,
   seasons: [Number],
-  members: [Number],
+  members: [String],
 })
 var League = mongoose.model("League", leagueSchema);
 

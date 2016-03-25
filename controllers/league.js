@@ -27,32 +27,41 @@ router.post("/create", urlencodedParser, function(req, res) {
       if (user == null) {
         console.log("No user with email '%s' found.", adminEmail)
       } else {
-        var newLeague = new League({
+        var newLeague = new LeagueModel({
           name: name,
           description: req.body.description,
           admin: user._id
-        })
+        });
+
+        var id = user._id;
+
         newLeague.save(function(err, newLeague) {
-          if (err) return console.error(err)
+          if (err) return console.error(err);
 
-          console.log("Created new league: %s", newLeague)
-        })
+          LeagueModel.findByIdAndUpdate(
+            newLeague._id,
+            { $push: { "members": id } },
+            {safe: true, upsert: true, new : true},
+            function(err, model) {
+              if (err) return console.error(err);
+
+              console.log("Created new league: %s", newLeague);
+              res.end();
+            });
+        });
       }
-    })
-  })
-
-  resCleanup(res)
+    });
+  });
 });
 
-router.get("/listAll", function (req, res) {
-  League.find({}, function (err, leagues) {
-    if (err) return console.error(err)
+router.get("/listAll", function(req, res) {
+  LeagueModel.find({}, function(err, leagues) {
+    if (err) return console.error(err);
 
-    console.log("League Count: %s", leagues.length)
-    console.log(leagues)
-  })
-
-  resCleanup(res)
-})
+    console.log("League Count: %s", leagues.length);
+    console.log(leagues);
+    res.send(JSON.stringify(leagues));
+  });
+});
 
 module.exports = router;

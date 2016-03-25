@@ -20,7 +20,6 @@ fs.readdirSync('./controllers').forEach(function (file) {
     file = file.substr(0, file.length - 3);
     var controller = require('./controllers/' + file);
     app.use('/' + file, controller);
-    console.log('/' + file);
   }
 });
 
