@@ -41,7 +41,7 @@ router.post("/create", urlencodedParser, function(req, res) {
           LeagueModel.findByIdAndUpdate(
             newLeague._id,
             { $push: { "members": id } },
-            {safe: true, upsert: true, new : true},
+            { safe: true, upsert: true, new: true },
             function(err, model) {
               if (err) return console.error(err);
 
@@ -64,20 +64,45 @@ router.get("/listAll", function(req, res) {
   });
 });
 
-router.get("/listMemberOf", urlencodedParser, function(req, res) {
+router.get("/listMemberOf", function(req, res) {
   var email = req.query.email;
   console.log("Looking for email: " + email);
 
-  UserModel.findOne({email: email}, function(error, user) {
+  UserModel.findOne({ email: email }, function(error, user) {
     if (error) return console.error(error);
-    console.log(user);
 
     var userID = user._id;
-    LeagueModel.find({members: userID}, function(error, leagues) {
+    LeagueModel.find({ members: userID }, function(error, leagues) {
       if (error) return console.error(error);
 
       console.log(leagues);
       res.send(leagues);
+    });
+  });
+});
+
+router.post("/joinMember", urlencodedParser, function(req, res) {
+  var leagueName = req.body.leagueName;
+  var userEmail = req.body.userEmail;
+
+  LeagueModel.findOne({ name: leagueName }, function(error, league) {
+    if (error) return console.error(error);
+
+    if (!league) return console.error("League '%s' not found!", leagueName);
+
+    UserModel.findOne({ email: userEmail }, function(error, user) {
+      if (error) return console.error(error);
+
+      var id = user._id;
+      LeagueModel.findByIdAndUpdate(
+        league._id,
+        { $push: { "members": id } },
+        { safe: true, upsert: true, new: true },
+        function(err, model) {
+          if (err) return console.error(err);
+
+          res.end();
+        });
     });
   });
 });

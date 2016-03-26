@@ -1,5 +1,16 @@
 $(document).ready(function() {
 
+  $('#searchLeagueButton').click(function(e) {
+    var data = new Object();
+    data['leagueName'] = $('#searchLeagueName').val();
+    data['userEmail'] = getCookie('email');
+    $.post("http://localhost:8081/league/joinMember",
+    data,
+    function() {
+      location.reload();
+    });
+  });
+
   $('#create').click(function(e) {
     var data = new Object();
     data['name'] = $('#name').val();
@@ -14,18 +25,17 @@ $(document).ready(function() {
       });
   });
 
-  $.get("http://localhost:8081/league/listAll",
-    null,
+  $.get("http://localhost:8081/league/listMemberOf",
+    { email: getCookie('email') },
     function(data) {
       for (var i = 0; i < data.length; i++) {
         $("#joinedLeagues").append('<li>' + data[i].name + '</li>');
       }
-    },
-    "json");
+    });
 
-  $.get("http://localhost:8081/league/listMemberOf",
-  {email: getCookie('email')},
-  function(data) {
-    console.log(data);
-  });
+  $.get("http://localhost:8081/league/listAll",
+    null,
+    function(data) {
+
+    });
 });
