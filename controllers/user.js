@@ -7,11 +7,23 @@ var UserModel = require('../models/user');
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+router.get("/", function(req, res) {
+  res.sendFile(app.settings.views + "/user.html");
+});
+
 router.get("/listAll", function(req, res) {
   UserModel.find({}, function(error, users) {
     if (error) return console.error(error);
     res.send(users);
   });
+});
+
+router.post("/delete", urlencodedParser, function(req, res) {
+  var userID = req.body.userID;
+  UserModel.find({_id: userID}, function(error, user) {
+    if (error) return console.error(error);
+    res.end();
+  }).remove().exec();
 });
 
 router.post("/signUp", urlencodedParser, function(req, res) {
