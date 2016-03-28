@@ -1,4 +1,3 @@
-
 var express = require("express");
 var app = express();
 var router = express.Router();
@@ -58,8 +57,6 @@ router.get("/listAll", function(req, res) {
   LeagueModel.find({}, function(err, leagues) {
     if (err) return console.error(err);
 
-    // console.log("League Count: %s", leagues.length);
-    // console.log(leagues);
     res.send(JSON.stringify(leagues));
   });
 });
@@ -104,6 +101,14 @@ router.post("/joinMember", urlencodedParser, function(req, res) {
           res.end();
         });
     });
+  });
+});
+
+router.get("/membersLeague", function(req, res) {
+  var userID = req.query.userID;
+  LeagueModel.find({members: userID}, function(error, leagues) {
+    if (error) return console.error(error);
+    res.send(leagues);
   });
 });
 

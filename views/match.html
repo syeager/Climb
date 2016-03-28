@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Matches Page</title>
+  <link rel="stylesheet" type="text/css" href="/styles/theme.css" />
+  <script src="/scripts/jquery.js"></script>
+  <script src="/scripts/paths.js"></script>
+  <script src="/scripts/ClientTest.js"></script>
+  <script src="/scripts/paths.js"></script>
+  <script src="/scripts/index.js"></script>
+  <script src="/scripts/match.js"></script>
+</head>
+
+<body>
+  <h1>Matches</h1>
+  League <select id="leagues"></select>
+  <br>
+  Season <select id="seasons"></select>
+  <br>
+  Player 1 <select id="player1"></select>
+  <input type="number" id="player1Score" />
+  <br>
+  Player 2 <select id="player2"></select>
+  <input type="number" id="player2Score" />
+  <br>
+  <button id="submit">Submit</button>
+
+  <div id="createForm">
+    <h2>Create New</h2>
+    <input type="text" id="seasonName" placeholder="Season Name" />
+    <br>
+    <input type="text" id="leagueName" placeholder="League Name" />
+    <br>
+    <input type="text" id="player1Name" placeholder="Player 1 Name" />
+    <br>
+    <input type="number" id="player1Score" />
+    <br>
+    <input type="text" id="player2Name" placeholder="Player 2 Name" />
+    <br>
+    <input type="number" id="player2Score" />
+    <br>
+    <button id="create">Create</button>
+  </div>
+</body>
+
+</html>

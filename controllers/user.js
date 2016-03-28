@@ -7,6 +7,31 @@ var UserModel = require('../models/user');
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+router.get("/listAll", function(req, res) {
+  UserModel.find({}, function(error, users) {
+    if (error) return console.error(error);
+    res.send(users);
+  });
+});
+
+router.post("/signUp", urlencodedParser, function(req, res) {
+  var username = req.body.username;
+  var email = req.body.email;
+  var password = req.body.password;
+  console.log(req.body);
+
+  var user = new UserModel({
+    name: username,
+    email: email,
+    password: password,
+  });
+  user.save(function(error, newUser) {
+    if (error) console.error(error);
+    console.log("New user '%s' created.", username);
+    res.end();
+  });
+});
+
 router.post("/logIn", urlencodedParser, function(req, res) {
   var email = req.body.email;
   var password = req.body.password;
@@ -17,6 +42,15 @@ router.post("/logIn", urlencodedParser, function(req, res) {
   });
 });
 
+router.get("/getID", function(req, res) {
+  var userEmail = req.query.userEmail;
+  UserModel.findOne({ email: userEmail }, function(error, user) {
+    if (error) return console.error(error);
+    if (!user) return console.error("No user with email '%s' found!", userEmail);
+    res.send(JSON.stringify(user._id));
+  })
+});
+
 module.exports = router;
 
 function logIn(email, password, onComplete) {
@@ -25,9 +59,9 @@ function logIn(email, password, onComplete) {
 
     if (user != null) {
       if (password == user.password) {
-        console.log("Logged In: " + user.username);
+        console.log("Logged In: " + user.name);
 
-        onComplete(user.username);
+        onComplete(user.name);
       } else {
         console.log("Passwords did not match.");
       }

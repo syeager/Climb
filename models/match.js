@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 
 var matchSchema = mongoose.Schema({
-  league: Number,
   season: Number,
   player1: Number,
   player1Score: Number,

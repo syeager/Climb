@@ -1,13 +1,14 @@
 var mongoose = require('mongoose');
 
 var seasonSchema = mongoose.Schema({
-  league: Number,
-  admin: Number,
-  game: Number,
-  participants: [Number],
-  matches: [Number],
-  finalRankings: [Number],
-  rankEvents: [Number],
+  name: String,
+  league: String,
+  game: String,
+  admin: String,
+  participants: [String],
+  matches: [String],
+  finalRankings: [String],
+  rankEvents: [String],
   startDate: String,
   endDate: String
 });

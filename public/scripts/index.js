@@ -16,6 +16,19 @@ $(document).ready(function () {
     logIn(email, password, showUser);
   });
 
+  $("#signup-submit").click(function() {
+    var data = new Object();
+    data["email"] = $("#signup-email").val();
+    data["username"] = $("#signup-username").val();
+    data["password"] = $("#signup-password").val();
+
+    $.post(host + "user/signUp",
+    data,
+    function() {
+      logIn(data["email"], data["password"], showUser);
+    });
+  });
+
 });
 
 function showUser(username) {

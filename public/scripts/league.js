@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   $('#searchLeagueButton').click(function(e) {
     var data = new Object();
     data['leagueName'] = $('#searchLeagueName').val();
