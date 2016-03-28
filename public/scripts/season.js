@@ -24,7 +24,6 @@ $(document).ready(function() {
     data['leagueName'] = $('#signUp_leagueName').val();
     data['seasonName'] = $('#signUp_seasonName').val();
     data['email'] = getCookie('email');
-    console.log(data);
     $.post("http://localhost:8081/season/signUp",
       data,
       function() {

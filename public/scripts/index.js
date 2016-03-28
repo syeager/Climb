@@ -32,8 +32,6 @@ $(document).ready(function () {
 });
 
 function showUser(username) {
-  console.log("showUser");
-
   $('#user-login').hide();
   $('#username').show();
   $('#username').text(username);

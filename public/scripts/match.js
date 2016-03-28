@@ -4,7 +4,6 @@ var users = new Array();
 
 $(document).ready(function() {
 
-
   $("#leagues").change(function() {
     updateSeasonsDropDown();
   });
@@ -12,7 +11,6 @@ $(document).ready(function() {
   $.get(host + "user/getID",
     { userEmail: getCookie('email') },
     function(userID) {
-      console.log(userID);
       $.get(host + "league/membersLeague",
         { userID: userID },
         function(leagueList) {

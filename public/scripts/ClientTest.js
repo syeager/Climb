@@ -1,11 +1,4 @@
-function test() {
-  console.log("Testing!");
-  $.get("http://localhost:8081/user/test");
-}
-
-
 function logIn(email, password, onComplete) {
-  console.log("logIn");
   if (email == undefined) {
     email = getCookie("email");
     password = getCookie("password");
