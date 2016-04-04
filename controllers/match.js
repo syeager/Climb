@@ -5,6 +5,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var LeagueModel = require('../models/league');
 var GameModel = require('../models/game');
+var SeasonModel = require('../models/season');
 var MatchModel = require('../models/match');
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -14,18 +15,33 @@ router.get("/", urlencodedParser, function(req, res) {
 });
 
 router.post("/create", urlencodedParser, function(req, res) {
-  var leagueName = req.body.leagueName;
-  var seasonName = req.body.seasonName;
-  var player1Name = req.body.player1Name;
+  var season = req.body.season;
+  var player1 = req.body.player1;
   var player1Score = req.body.player1Score;
-  var player2Name = req.body.player2Name;
+  var player2 = req.body.player2;
   var player2Score = req.body.player2Score;
 
-  LeagueModel.findOne({name: leagueName}, function(error, league) {
-    if (error) return console.error(error);
-    if (!league) return console.error("No league '%s' found!", leagueName);
+  var match = new MatchModel({
+      season: season,
+      player1: player1,
+      player1Score: player1Score,
+      player2: player2,
+      player2Score: player2Score
+    });
+    match.save(function(error, newMatch) {
+      if (error) return console.error(error);
+      console.log("Match created: " + newMatch);
 
-  });
+      SeasonModel.findByIdAndUpdate(
+        season,
+        { $push: {"matches": newMatch._id}},
+        { safe: true, upsert: true, new: true},
+        function(error) {
+          if (error) return console.error(error);
+          res.end();
+        }
+      );
+    });
 });
 
 module.exports = router;

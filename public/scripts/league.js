@@ -1,13 +1,32 @@
 $(document).ready(function() {
+  $.get(host + "league/listAll",
+    null,
+    function(leagues) {
+      for (var i = 0; i < leagues.length; i++) {
+        var user = document.createElement("li");
+        user.innerHTML = JSON.stringify(leagues[i]);
+        $("#allLeagues").append(user);
+      }
+    },
+    "json");
+
+  $("#deleteButton").click(function() {
+    $.post(host + "league/delete",
+      { leagueID: $("#deleteLeague").val() },
+      function() {
+        location.reload();
+      })
+  });
+
   $('#searchLeagueButton').click(function(e) {
     var data = new Object();
     data['leagueName'] = $('#searchLeagueName').val();
     data['userEmail'] = getCookie('email');
     $.post("http://localhost:8081/league/joinMember",
-    data,
-    function() {
-      location.reload();
-    });
+      data,
+      function() {
+        location.reload();
+      });
   });
 
   $('#create').click(function(e) {
@@ -30,11 +49,5 @@ $(document).ready(function() {
       for (var i = 0; i < data.length; i++) {
         $("#joinedLeagues").append('<li>' + data[i].name + '</li>');
       }
-    });
-
-  $.get("http://localhost:8081/league/listAll",
-    null,
-    function(data) {
-
     });
 });

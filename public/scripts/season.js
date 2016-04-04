@@ -1,9 +1,22 @@
 $(document).ready(function() {
   $.get(host + "season/listAll",
     null,
-    function(data) {
-      console.log(data);
-    });
+    function(seasons) {
+      for (var i = 0; i < seasons.length; i++) {
+        var user = document.createElement("li");
+        user.innerHTML = JSON.stringify(seasons[i]);
+        $("#allSeasons").append(user);
+      }
+    },
+    "json");
+
+  $("#deleteButton").click(function() {
+    $.post(host + "season/delete",
+      { leagueID: $("#deleteSeason").val() },
+      function() {
+        location.reload();
+      })
+  });
 
   $('#create').click(function(e) {
     var data = new Object();

@@ -4,7 +4,7 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var LeagueModel = require('../models/league');
-var GameModel = require('../models/game');
+var Game = require('../models/game');
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -13,28 +13,24 @@ router.get("/", urlencodedParser, function(req, res) {
 });
 
 router.get("/listAll", function(req, res) {
-  GameModel.find({}, function(err, games) {
-    if (err) return console.error(err);
-
+  Game.listAll(function(games) {
     res.send(games);
+  });
+});
+
+router.post("/delete", urlencodedParser, function(req, res) {
+  var gameID = req.body.gameID;
+
+  Game.deleteGame(gameID, function() {
+    res.end();
   });
 });
 
 router.post("/create", urlencodedParser, function(req, res) {
   var name = req.body.name;
 
-  GameModel.findOne({name: name}, function(error, game) {
-    if (error) return console.error(error);
-    if (game) return console.error("Game '&s' already created!", name);
-
-    var newGame = new GameModel({
-      name: name
-    });
-    newGame.save(function(error, newGame) {
-      if (error) return console.error(error);
-      console.log("Game '%s' created!", name);
-      res.end();
-    });
+  Game.createGame(name, function(newGame) {
+    res.end();
   });
 });
 

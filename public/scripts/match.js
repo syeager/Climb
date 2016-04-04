@@ -8,6 +8,10 @@ $(document).ready(function() {
     updateSeasonsDropDown();
   });
 
+  $("#seasons").change(function() {
+    updatePlayersDropDown();
+  });
+
   $.get(host + "user/getID",
     { userEmail: getCookie('email') },
     function(userID) {
@@ -38,15 +42,18 @@ $(document).ready(function() {
           users = userList;
           updatePlayersDropDown();
         });
-    }
+    },
+    "json"
   );
 
-  $('#create').click(function(e) {
+  $('#submit').click(function(e) {
     var data = new Object();
-    data['seasonName'] = $('#seasonName').val();
-    data['leagueName'] = $('#leagueName').val();
-    data['gameName'] = $('#gameName').val();
-    data['adminEmail'] = getCookie('email');
+    data['season'] = $('#seasons').val();
+    data['player1'] = $('#player1').val();
+    data['player1Score'] = $('#player1Score').val();
+    data['player2'] = $('#player2').val();
+    data['player2Score'] = $('#player2Score').val();
+    console.log(data);
 
     $.post(host + "match/create",
       data,
@@ -73,13 +80,18 @@ var updateSeasonsDropDown = function() {
 
 var updatePlayersDropDown = function() {
   var seasonID = $("#seasons").val();
-  var season = $.grep(seasons, function(s) {return s._id == seasonID})[0];
+  var season;
+  for (var i = 0; i < seasons.length; i++) {
+    if (seasons[i]._id == seasonID) {
+      season = seasons[i];
+      break;
+    }
+  }
 
-  for(var i = 0; i < season.participants.length; i++) {
+  for (var i = 0; i < season.participants.length; i++) {
     var userID = season.participants[i];
     var username;
     for (var j = 0; j < users.length; j++) {
-      console.log(users[j])
       if (users[j]._id == userID) {
         username = users[j].name;
         break;
