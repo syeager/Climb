@@ -45,7 +45,7 @@ router.post("/logIn", urlencodedParser, function(req, res) {
 
 router.get("/getID", function(req, res) {
   var userEmail = req.query.userEmail;
-  User.findByEmail(function(user) {
+  User.findByEmail(userEmail, function(user) {
     if (!user) return console.error("No user with email '%s' found!", userEmail);
     res.send(user._id);
   });
