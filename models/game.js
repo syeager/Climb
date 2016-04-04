@@ -24,7 +24,7 @@ var findByName = function(name, onComplete) {
   Model.findOne({ name: name }, function(error, game) {
     if (error) return console.error(error);
     onComplete(game);
-  })
+  });
 }
 
 var deleteGame = function(id, onComplete) {
